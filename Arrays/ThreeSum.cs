@@ -1,6 +1,6 @@
 /*
 https://leetcode.com/problems/3sum/description/
-
+TC- O(n^2)
 Steps:
 1. Sort the array,if unsorted
 2. Fix one end and check if repeated , then take the last occurence of it. 
