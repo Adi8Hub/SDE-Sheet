@@ -1,10 +1,11 @@
 /*
 https://www.geeksforgeeks.org/problems/factorials-of-large-numbers2508/1
+TC- O(n^2)
+
 */
 
 //{ Driver Code Starts
 //Initial Template for C#
-
 
 using System;
 using System.Collections.Generic;
@@ -46,12 +47,8 @@ class Solution
     //Complete this function
     public List<int> factorial(int N)
     {
-        // code here
-        
-        List<int> ans = new List<int>();
-        
-        ans.Add(1);
-        
+        List<int> ans = new List<int>();        
+        ans.Add(1);        
         for(int i =2;i<=N;i++)
         {
             reverseFactorial(ans,i);
