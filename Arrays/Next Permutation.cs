@@ -1,5 +1,7 @@
 /*
 https://leetcode.com/problems/next-permutation
+https://www.geeksforgeeks.org/problems/next-permutation5226/1
+
 
 Steps:
 1. Find next lower no from right side. Mark it as X index
@@ -29,7 +31,7 @@ public class Solution {
       //2
         if(swappingIndex!= -1)
         {
-            int swapWith = -1;
+            int swapWith = swappingIndex;
             for(int i = n-1; i > swappingIndex; i--)
             {
                 if(nums[i] > nums[swappingIndex])
