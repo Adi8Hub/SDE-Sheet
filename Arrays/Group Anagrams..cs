@@ -43,3 +43,60 @@ public class Solution {
         return result;
     }
 }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// 2 . Without Sorting---------Use frequency Array
+//T.C. n*k
+public class Solution {
+    public string freqArray(string temp)
+    {
+        char[] ch = new char[26];
+
+        for(int i =0;i<temp.Length;i++)
+        {            
+            ch[temp[i]-'a']++;
+        }
+
+        string newWord="";
+        for(int i =0;i<26;i++)
+        {    
+            int freq = ch[i];        
+            while(freq-->0)
+            {
+                char c =(char)(i+'a');
+                newWord += c.ToString();
+            }
+        }
+        return newWord; 
+    }
+
+    public IList<IList<string>> GroupAnagrams(string[] strs) {
+        int n = strs.Length;
+        var result = new List<IList<string>>();
+        var map = new Dictionary<string,List<string>>();
+
+        for(int i =0;i<n;i++)
+        {
+            string temp = strs[i];
+            string newWord = freqArray(temp);
+
+            if(map.ContainsKey(newWord))
+            {
+                map[newWord].Add(strs[i]);
+            }
+            else
+            {
+                map.Add(newWord,new List<string>());
+                map[newWord].Add(strs[i]);
+            }
+        }
+
+        foreach(var item in map)
+        {
+            result.Add(item.Value);
+        }
+        return result;
+    }
+}
