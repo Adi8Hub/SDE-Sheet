@@ -38,3 +38,29 @@ public class Solution {
         return result;
     }
 }
+
+
+
+// O(1) using 2 loops
+public class Solution {
+    public IList<int> SequentialDigits(int low, int high) {
+        var result = new List<int>();
+        
+        for(int start =1;start<9;start++)
+        {
+            int num = start;
+            for(int next=start+1;next<10;next++)
+            {
+                num = num*10+next;
+
+                if(num>=low && num<=high)
+                {
+                    result.Add(num);
+                }
+            }
+        }
+
+        result.Sort();
+        return result;
+    }
+}
