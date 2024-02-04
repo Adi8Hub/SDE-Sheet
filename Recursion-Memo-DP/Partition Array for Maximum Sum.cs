@@ -58,3 +58,29 @@ public class Solution {
         return t[start]=result;
     }
 }
+
+
+
+//Approach-2 (Botom Up)
+//T.C : O(n*k)
+//S.C : O(n)
+
+public class Solution {
+    public int MaxSumAfterPartitioning(int[] arr, int k) {
+        int n = arr.Length;
+        int[] t = new int[n + 1];
+        
+        //t[i] = Maximum sum for the partition arr of size i
+        //we need to find max for whole array = t[n]
+        
+        for (int i = 1; i <= n; i++) { // 1. take full-array size first
+            int currMax = -1;
+            
+            for (int j = 1; j <= k && i - j >= 0; j++) { // 2. Subarray of size j
+                currMax = Math.Max(currMax, arr[i - j]);// find max of subarray upto k length from current index and moving left
+                t[i] = Math.Max(t[i], t[i - j] + currMax * j);
+            }
+        }
+        return t[n];  
+    }
+}
