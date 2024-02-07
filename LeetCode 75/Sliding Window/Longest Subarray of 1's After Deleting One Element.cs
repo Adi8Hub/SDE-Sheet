@@ -76,3 +76,29 @@ public class Solution {
         return maxLength;
     }
 }
+
+// Using 2 pointers, sliding window
+// set lastZeroindex to the left and move right 
+// if currelement is 0,move left pointer to lastzeroindex+1 and lastzeroindex to curr pointer i.e. right pointer
+// calculate max
+public class Solution {
+    public int LongestSubarray(int[] nums) 
+    {
+        int n = nums.Length;
+        int maxLength=0;
+        int i = 0,j = 0;
+        int lastZero = -1;
+
+        while(j<n)
+        {
+            if(nums[j]==0)
+            {
+                i=lastZero+1;
+                lastZero=j;
+            }
+            maxLength=Math.Max(maxLength,j-i);
+            j++;
+        }
+        return maxLength;
+    }
+}
