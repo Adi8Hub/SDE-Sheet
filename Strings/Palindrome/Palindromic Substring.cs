@@ -151,3 +151,35 @@ public class Solution {
         return count;
     }
 }
+
+
+// Better Approach: TC: n^2 SC: 1
+// Find plaindrome count based on index as center, if length id odd then check for i, if even then check for i and (i+1)
+public class Solution {    
+    int count=0;
+    public int CountSubstrings(string s) 
+    {
+        int n = s.Length;
+        /*
+         * Every single character in the string is a center for possible odd-length
+         * palindromes: check(s, i, i); Every pair of consecutive characters in the
+         * string is a center for possible even-length palindromes: check(s, i, i+1);
+         */
+        for (int i = 0; i < n; i++) {
+            check(s, i, i, n);// Odd-length palindrome ,hence center would be i
+            check(s, i, i + 1, n);//Even length palindrome,hence center would be i,i+1
+        }
+        return count;
+    }
+
+    void check(string s, int i , int j, int n)
+    {
+        while(i>=0 && j<n && s[i]==s[j])
+        {
+            count++;
+            i--;
+            j++;
+        }
+        
+    }
+}
