@@ -105,4 +105,49 @@ public class Solution {
 }
 
 
+//  Bottom-Up DP
+/*
+traverse from length 1 to n
+    traverse i from 0 to i+l-1 . Here j becomes i+l-1, as above loop gives length as l,hence current substring starts from i and ends at j=i+l-1(-1 ==> 0-based indexing)
+        - For 1 length substring t[i,i]=1 as 1 lenght substring is palindrome
+        - For 2 length, i.e. i+1==j, if same chars then palindrome
+        - For >2 length, if(s[i]==s[j] && remaining i.e., from i+1 to j-1 is palindrome, then i to j is palindrome
+*/
 
+public class Solution {
+    
+    public int CountSubstrings(string s) 
+    {
+        int n = s.Length;
+        int count=0;
+        bool[,] t = new bool[n,n];
+
+        for(int l=1;l<=n;l++)
+        {
+            for(int i =0;i+l-1<n;i++)//0-based
+            {
+                int j =i+l-1;// substring starts from i and ends at j with length l
+
+                if(i==j)// 1-length palindrome
+                {
+                    t[i,j] = true;
+                }
+                else if(i+1 == j)//2-length palindrome
+                {
+                    if(s[i] == s[j])
+                        t[i,j] = true;
+                    else
+                        t[i,j] = false;
+                }
+                else// more than 2 length substring, check if left end and right are same and in-between substring is plaindrome 
+                {
+                    t[i,j] = (s[i]==s[j] && t[i+1,j-1]);
+                }
+
+                if(t[i,j])
+                    count++;                
+            }    
+        }        
+        return count;
+    }
+}
