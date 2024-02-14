@@ -2,4 +2,6 @@
 https://www.geeksforgeeks.org/problems/search-pattern0205/1
 */
 
-Yet to do
+// Brute Force
+// TC: O(m*n)
+// For every m in str1, we check for chars in str2
