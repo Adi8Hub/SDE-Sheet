@@ -25,3 +25,38 @@ public class Solution {
 
     }
 }
+
+
+// Level Order Traversal
+public class Solution {
+    public IList<int> RightSideView(TreeNode root) {
+        if(root==null)
+            return new List<int>();
+        
+        var result = new List<int>();
+        Queue<TreeNode> q = new Queue<TreeNode>();
+        q.Enqueue(root);
+
+        while(q.Count>0)
+        {
+            int n = q.Count;
+            TreeNode node = null;
+            while(n-->0)
+            {
+                node = q.Dequeue();
+
+                if(node.left!=null)
+                {
+                    q.Enqueue(node.left);
+                }
+
+                if(node.right!=null)
+                {
+                    q.Enqueue(node.right);
+                }
+            }
+            result.Add(node.val);
+        }
+        return result;
+    }    
+}
