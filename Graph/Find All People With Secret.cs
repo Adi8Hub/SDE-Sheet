@@ -88,4 +88,71 @@ public class Solution {
         return ans;        
     }
 }
+//************************************************************************************************************************************************************************
+// BFS traversal and storing Pairs
+//T.C : O(M * (M+N)) -> M = Number of meetings, N = number of people, there can be at most N+M elements in the queue and a person may have M neighbours
+//S.C : O(M+N)
+public class Solution {
+    public IList<int> FindAllPeople(int n, int[][] meetings, int firstPerson) {
+        // 1. Make adjacency list for graph with values containing 
+        // Pair--> (Person,time)
+        Dictionary<int,List<(int,int)>> adj = new Dictionary<int,List<(int,int)>>();
+        foreach(int[] meeting in meetings)
+        {
+            int p1 = meeting[0];
+            int p2 = meeting[1];
+            int t = meeting[2];
+
+            if(!adj.ContainsKey(p1))
+                adj[p1] = new List<(int,int)>();
+            if(!adj.ContainsKey(p2))
+                adj[p2] = new List<(int,int)>();
+            adj[p1].Add((p2,t));
+            adj[p2].Add((p1,t));
+        }
+        /*****************ENd of Graph Creation******************************/
+
+        Queue<(int,int)> q = new Queue<(int,int)>();
+        q.Enqueue((0,0));
+        q.Enqueue((firstPerson,0));
+
+        int[] earlyTime = new int[n];
+        Array.Fill(earlyTime,int.MaxValue);
+        earlyTime[0]=0;
+        earlyTime[firstPerson]=0;
+
+        // BFS
+        while(q.Count>0)
+        {
+            var (person,time) = q.Dequeue();
+            if(adj.ContainsKey(person))
+            {
+                // Traverse its neighbors
+                foreach(var neighbor in adj[person])
+                {
+                    int p = neighbor.Item1;
+                    int t = neighbor.Item2;
+
+                    if(t>=time && earlyTime[p]>t)
+                    {
+                        earlyTime[p]=t;
+                        q.Enqueue((p,t));
+                    }
+                }
+            }
+        }
+
+        List<int> ans = new List<int>();
+        for(int i =0;i<n;i++)
+        {
+            if(earlyTime[i]!=int.MaxValue)
+                ans.Add(i);
+        }
+        return ans;
+
+    }
+}
+
+
+
 
