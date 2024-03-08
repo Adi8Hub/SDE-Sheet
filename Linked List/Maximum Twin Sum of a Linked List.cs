@@ -58,3 +58,47 @@ public class Solution {
         
     }
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+public class Solution {
+    public int PairSum(ListNode head) {
+        if(head.next.next==null)
+            return head.val+head.next.val;
+        
+        // Approach 3: Find mid node, reverse from mid node till last,getmaxsum from curr&mid node and keep on traversing
+
+        // 1. Find mid node
+        
+        ListNode slow =head;
+        ListNode fast = head;
+        while(fast!=null && fast.next!=null)
+        {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // 2. Reverse from mid till last
+        ListNode mid = slow;
+        ListNode pre = null;
+        ListNode next = null;
+
+        while(mid!=null)
+        {
+            next = mid.next;
+            mid.next = pre;
+            pre = mid;
+            mid = next;
+        }
+        // End of reversal code
+
+        // 3. 
+        ListNode curr = head;
+        int res = 0;
+        while(pre!=null)
+        {
+            res = Math.Max(res,curr.val+pre.val);
+            pre = pre.next;
+            curr = curr.next;
+        }
+        return res;
+
